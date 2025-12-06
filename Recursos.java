@@ -1,0 +1,47 @@
+package utiles;
+
+public class Recursos {
+    public static final String LOGO = "logoEmpresa.png";
+    public static final String FONDO_MENU = "fondos/fondoEclipse.png";
+    public static final String BOTONJUGAR = "botones/botonJugar.png";
+    public static final String BOTONINSTRUC = "botones/botonInstruc.png";
+    public static final String BOTONJUGARHOVER = "botones/botonJugarPresionado.png";
+    public static final String BOTONINSTRUCHOVER = "botones/botonInstrucPresionado.png";
+    public static final String FONDOSELECNIVEL = "fondos/fondoSelecNivel.png";
+    public static final String BOTONNIVEL1 = "botones/botonNivel1.png";
+    public static final String BOTONNIVELHOVER1 = "botones/botonNivelPresionado1.png";
+    public static final String BOTONNIVEL2 = "botones/botonNivel2.png";
+    public static final String BOTONNIVELHOVER2 = "botones/botonNivelPresionado2.png";
+    public static final String BOTONNIVEL3 = "botones/botonNivel3.png";
+    public static final String BOTONNIVELHOVER3 = "botones/botonNivelPresionado3.png";
+    public static final String BOTONNIVEL4 = "botones/botonNivel4.png";
+    public static final String BOTONNIVELHOVER4 = "botones/botonNivelPresionado4.png";
+    public static final String BOTONNIVEL5 = "botones/botonNivel5.png";
+    public static final String BOTONNIVELHOVER5 = "botones/botonNivelPresionado5.png";
+    public static final String BOTONNIVEL6 = "botones/botonNivel6.png";
+    public static final String BOTONNIVELHOVER6 = "botones/botonNivelPresionado6.png";
+    public static final String BOTONNIVEL7 = "botones/botonNivel7.png";
+    public static final String BOTONNIVELHOVER7 = "botones/botonNivelPresionado7.png";
+    public static final String BOTONNIVEL8 = "botones/botonNivel8.png";
+    public static final String BOTONNIVELHOVER8 = "botones/botonNivelPresionado8.png";
+    public static final String BOTONNIVEL9 = "botones/botonNivel9.png";
+    public static final String BOTONNIVELHOVER9 = "botones/botonNivelPresionado9.png";
+    public static final String BOTONNIVEL10 = "botones/botonNivel10.png";
+    public static final String BOTONNIVELHOVER10 = "botones/botonNivelPresionado10.png";
+    public static final String ESTRELLA = "mapas/estrella.png";
+    public static final String BLOQUEMOVIL = "mapas/bloqueMovil.png";
+    public static final String MENUNIVEL1 = "mapas/nivel1.tmx";
+    public static final String MENUNIVEL2 = "mapas/nivel2.tmx";
+    public static final String MENUNIVEL3 = "mapas/nivel3.tmx";
+    public static final String FONDODERROTA = "fondos/fondoDerrota.png";
+    public static final String FONDOVICTORIA = "fondos/fondoVictoria.png";
+    public static final String MENUNIVEL4 = "mapas/nivel4.tmx";
+    public static final String BOTONNORMAL = "mapas/boton_normal.png";
+    public static final String BOTONPRESIONADO = "mapas/boton_presionado.png";
+    public static final String MENUNIVEL5 = "mapas/nivel5.tmx";
+    public static final String MENUNIVEL6 = "mapas/Nivel6.tmx";
+    public static final String MENUNIVEL7 = "mapas/Nivel7.tmx";
+    public static final String MENUNIVEL8 = "mapas/nivel8.tmx";
+    public static final String MENUNIVEL9 = "mapas/nivel9.tmx";
+    public static final String MENUNIVEL10 = "mapas/nivel10.tmx";
+}
