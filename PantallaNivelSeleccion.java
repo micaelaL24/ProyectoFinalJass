@@ -33,28 +33,21 @@ public class PantallaNivelSeleccion implements Screen {
 
     @Override
     public void show() {
-        System.out.println("NS: show() inicio");
-
         // Fondo
-        System.out.println("NS: creando fondo con " + Recursos.FONDOSELECNIVEL);
         fondo = new Imagen(Recursos.FONDOSELECNIVEL);
         fondo.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        System.out.println("NS: fondo OK");
 
         b = Render.batch;
         botonesNivel = new ArrayList<>(TOTAL_NIVELES);
 
-        // ---------- PROGRESO ----------
-        System.out.println("NS: pidiendo nivelMax");
+        // ---------- PROGRESO (USANDO CLASE UTILIDAD) ----------
         nivelMax = ProgresoJuego.getNivelMaxDesbloqueado();
-        System.out.println("NS: nivelMax = " + nivelMax);
 
         float centroY = (Gdx.graphics.getHeight() - ALTO_BOTON) / 2;
 
         // Crear botones
         for (int i = 0; i < TOTAL_NIVELES; i++) {
             int nivel = i + 1;
-            System.out.println("NS: creando boton nivel " + nivel);
             Imagen boton = crearBotonNivel(nivel);
 
             int columna = (i % NIVELES_POR_FILA) + 1;
@@ -66,19 +59,17 @@ public class PantallaNivelSeleccion implements Screen {
             boton.setSize(ANCHO_BOTON, ALTO_BOTON);
             boton.setPosition(offsetX, offsetY);
 
+            // ---------- BLOQUEAR SI NO ESTA DESBLOQUEADO ----------
             if (nivel > nivelMax) {
                 boton.setBloqueado(true);
-                boton.setTransperencia(0.4f);
+                boton.setTransperencia(0.4f); // Se ve más apagado
             }
 
             botonesNivel.add(boton);
-            System.out.println("NS: boton nivel " + nivel + " OK");
         }
 
         // Música
-        System.out.println("NS: reproducir música MENU");
         GestorMusica.reproducir(GestorMusica.TipoMusica.MENU);
-        System.out.println("NS: show() FIN");
     }
 
     private Imagen crearBotonNivel(int nivel) {
@@ -100,15 +91,15 @@ public class PantallaNivelSeleccion implements Screen {
     private Screen crearPantallaNivel(int nivel) {
         switch (nivel) {
             case 1: return new PantallaNivel1();
-            //case 2: return new PantallaNivel2();
-            //case 3: return new PantallaNivel3();
-            //case 4: return new PantallaNivel4();
-            //case 5: return new PantallaNivel5();
-            //case 6: return new PantallaNivel6();
-            //case 7: return new PantallaNivel7();
-            //case 8: return new PantallaNivel8();
-            //case 9: return new PantallaNivel9();
-            //case 10: return new PantallaNivel10();
+            case 2: return new PantallaNivel2();
+            case 3: return new PantallaNivel3();
+            case 4: return new PantallaNivel4();
+            case 5: return new PantallaNivel5();
+            case 6: return new PantallaNivel6();
+            case 7: return new PantallaNivel7();
+            case 8: return new PantallaNivel8();
+            case 9: return new PantallaNivel9();
+            case 10: return new PantallaNivel10();
         }
         return null;
     }
@@ -128,28 +119,30 @@ public class PantallaNivelSeleccion implements Screen {
                 GestorMusica.reproducir(GestorMusica.TipoMusica.NIVEL);
 
                 switch (nivel) {
-                    case 1: Render.app.setScreen(new PantallaClienteConectando(1));
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
+                        Render.app.setScreen(new PantallaServidorEsperando());
                         break;
-                    case 2: Render.app.setScreen(new PantallaClienteConectando(2)); break;
-                    case 3: Render.app.setScreen(new PantallaClienteConectando(3)); break;
-                    case 4: Render.app.setScreen(new PantallaClienteConectando(4)); break;
-                    case 5: Render.app.setScreen(new PantallaClienteConectando(5)); break;
-                    case 6: Render.app.setScreen(new PantallaClienteConectando(6)); break;
-                    case 7: Render.app.setScreen(new PantallaClienteConectando(7)); break;
-                    case 8: Render.app.setScreen(new PantallaClienteConectando(8)); break;
-                    case 9: Render.app.setScreen(new PantallaClienteConectando(9)); break;
-                    case 10: Render.app.setScreen(new PantallaClienteConectando(10)); break;
                 }
+
 
                 b.end();
                 return;
             }
 
-        }
 
-        // cerrar el batch si no se clickeó nada
+        }  // ← ESTA CIERRA EL FOR
+
         b.end();
-    }
+    } // ← ESTA CIERRA EL MÉTODO RENDER()
 
 
     // ================= Métodos del Screen =================

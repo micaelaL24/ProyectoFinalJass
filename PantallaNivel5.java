@@ -146,10 +146,6 @@ public class PantallaNivel5 extends PantallaNivelBase implements Screen {
     @Override
     public void resize(int width, int height) {}
 
-
-    @Override
-    public Array<Rectangle> getColisiones() { return colisiones; }
-
     @Override
     public void pause() {
         super.pause();

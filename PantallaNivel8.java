@@ -47,7 +47,7 @@ public class PantallaNivel8 extends PantallaNivelBase implements Screen {
 
         // Crear jugadores en la parte BAJA del mapa
         jugadorLuna = new Jugador(150, 1150, TipoJugador.AGUA);
-        jugadorSol = new Jugador(100, 1150, TipoJugador.FUEGO);
+        jugadorSol = new Jugador(1700, 1150, TipoJugador.FUEGO);
 
         // Cargar objetos del mapa
         colisiones = MapaHelper.cargarRectangulos(mapa, "Colisiones");
@@ -121,11 +121,7 @@ public class PantallaNivel8 extends PantallaNivelBase implements Screen {
     }
 
     @Override
-    public Array<Rectangle> getColisiones() { return colisiones; }
-
-    @Override
     public void resize(int width, int height) {}
-
 
     @Override
     public void pause() {

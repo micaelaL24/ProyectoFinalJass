@@ -2,57 +2,71 @@ package pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.maps.tiled.*;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 import elementos.Jugador;
-import utiles.MapaHelper;
+import elementos.Jugador.TipoJugador;
 import utiles.Recursos;
 import utiles.Render;
+import utiles.MapaHelper;
 
-public class PantallaNivel1 extends PantallaNivelBase {
+public class PantallaNivel1 extends PantallaNivelBase implements Screen {
 
-    protected TiledMap mapa;
-    protected OrthogonalTiledMapRenderer mapRenderer;
+    private TiledMap mapa;
+    private OrthogonalTiledMapRenderer mapRenderer;
+    private OrthographicCamera camera;
+    public Jugador jugadorLuna;
+    public Jugador jugadorSol;
+    private Music musicaNivel;
 
-    protected OrthographicCamera camera;
-
-    protected Jugador jugadorLuna;
-    protected Jugador jugadorSol;
-
-    protected Music musicaNivel;
-
-    protected Array<Rectangle> colisiones;
-    protected Array<Rectangle> peligroLava;
-    protected Array<Rectangle> peligroAgua;
-    protected Array<Rectangle> puertaLuna;
-    protected Array<Rectangle> puertaSol;
+    private Array<Rectangle> colisiones;
+    private Array<Rectangle> peligroLava;
+    private Array<Rectangle> peligroAgua;
+    private Array<Rectangle> puertaLuna;
+    private Array<Rectangle> puertaSol;
+    // estrellas ya está en PantallaNivelBase, no hace falta declararlo aquí
 
     @Override
     public void show() {
-
-        numeroNivel = 1;
-
+        // Cargar mapa
         mapa = new TmxMapLoader().load(Recursos.MENUNIVEL1);
         mapRenderer = new OrthogonalTiledMapRenderer(mapa);
 
-        // ESTE método sí existe en PantallaNivelBase
+        // --- ASIGNAR EL NÚMERO DE NIVEL ACTUAL ---
+        numeroNivel = 1;
+
+        // Configurar cámara (método heredado)
         camera = configurarCamara(mapa);
 
-        jugadorLuna = new Jugador(100, 400, Jugador.TipoJugador.AGUA);
-        jugadorSol = new Jugador(100, 100, Jugador.TipoJugador.FUEGO);
+        // Crear jugadores en la parte BAJA del mapa
+        jugadorLuna = new Jugador(100, 400, TipoJugador.AGUA);  // Luna = Agua
+        jugadorSol = new Jugador(100, 100, TipoJugador.FUEGO);  // Sol = Fuego
 
+        // Cargar objetos del mapa
         colisiones = MapaHelper.cargarRectangulos(mapa, "Colisiones");
         peligroLava = MapaHelper.cargarRectangulos(mapa, "PeligroLava");
         peligroAgua = MapaHelper.cargarRectangulos(mapa, "PeligroAgua");
         estrellas = MapaHelper.cargarRectangulos(mapa, "Estrellas");
+
+        // Puertas separadas:
         puertaLuna = MapaHelper.cargarRectangulos(mapa, "PuertaLuna");
         puertaSol = MapaHelper.cargarRectangulos(mapa, "PuertaSol");
 
+        System.out.println("Nivel 1 cargado:");
+        System.out.println("- Estrellas: " + estrellas.size);
+        System.out.println("- Puertas Luna: " + puertaLuna.size);
+        System.out.println("- Puertas Sol: " + puertaSol.size);
+
+        // Configurar timer (60 segundos para nivel 1)
+        timer.setTiempoRestante(60.0f);
+
+        // Música del nivel
         musicaNivel = Gdx.audio.newMusic(Gdx.files.internal("musicanivel1.mp3"));
         musicaNivel.setLooping(true);
         musicaNivel.setVolume(0.6f);
@@ -60,51 +74,64 @@ public class PantallaNivel1 extends PantallaNivelBase {
     }
 
     @Override
-    public void render(float delta) {
+    protected void updateNivel(float delta) {
+        // Actualizar jugadores
+        jugadorLuna.update(delta, colisiones);
+        jugadorSol.update(delta, colisiones);
 
-        // dibujar siempre el nivel
-        camera.update();
-        Render.limpiarPantalla(0,0,0);
+        // ===== USAR MÉTODOS DE LA CLASE BASE (código optimizado) =====
+        manejarRecoleccionEstrellas(jugadorLuna, jugadorSol);
+        if (verificarPeligros(jugadorLuna, jugadorSol, peligroLava, peligroAgua)) return;
+        if (verificarVictoria(jugadorLuna, jugadorSol, puertaLuna, puertaSol)) return;
 
+        // Dibujar mapa y objetos
+        Render.limpiarPantalla(0, 0, 0);
         mapRenderer.setView(camera);
         mapRenderer.render();
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+
+        // Dibujar estrellas (método de la clase base)
         dibujarEstrellas();
+
+        // Dibujar jugadores
         jugadorLuna.dibujar(batch);
         jugadorSol.dibujar(batch);
+
         batch.end();
-
-        super.render(delta); // HUD + timer
     }
 
-
     @Override
-    protected void updateNivel(float delta) {
-
-        jugadorLuna.update(delta, colisiones);
-        jugadorSol.update(delta, colisiones);
-
-        manejarRecoleccionEstrellas(jugadorLuna, jugadorSol);
-
-        // ESTOS 2 métodos SÍ existen en PantallaNivelBase
-        if (verificarPeligros(jugadorLuna, jugadorSol, peligroLava, peligroAgua)) return;
-        if (verificarVictoria(jugadorLuna, jugadorSol, puertaLuna, puertaSol)) return;
+    protected OrthographicCamera getCamera() {
+        return camera;
     }
 
-
-    // GETTERS solicitados por PantallaNivel1Cliente
-    public Array<Rectangle> getColisiones() { return colisiones; }
+    // AGREGAR estos métodos en su lugar:
+    @Override
+    protected Jugador getJugadorLuna() {
+        return jugadorLuna;
+    }
 
     @Override
-    protected OrthographicCamera getCamera() { return camera; }
+    protected Jugador getJugadorSol() {
+        return jugadorSol;
+    }
 
     @Override
-    protected Jugador getJugadorLuna() { return jugadorLuna; }
+    public void resize(int width, int height) {}
 
     @Override
-    protected Jugador getJugadorSol() { return jugadorSol; }
+    public void pause() {
+        super.pause();
+        if (musicaNivel != null) musicaNivel.pause();
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
+        if (musicaNivel != null) musicaNivel.play();
+    }
 
     @Override
     public void hide() {
@@ -118,6 +145,7 @@ public class PantallaNivel1 extends PantallaNivelBase {
         mapRenderer.dispose();
         jugadorLuna.dispose();
         jugadorSol.dispose();
+
         if (musicaNivel != null) musicaNivel.dispose();
     }
 }

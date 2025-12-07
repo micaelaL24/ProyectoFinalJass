@@ -125,9 +125,6 @@ public class PantallaNivel6 extends PantallaNivelBase implements Screen {
     public void resize(int width, int height) {}
 
     @Override
-    public Array<Rectangle> getColisiones() { return colisiones; }
-
-    @Override
     public void pause() {
         super.pause();
         if (musicaNivel != null) musicaNivel.pause();

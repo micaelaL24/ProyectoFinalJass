@@ -115,7 +115,6 @@ public class PantallaMenu implements Screen {
 
 
 
-
         if (btn2.isClicked()) {
             mostrandoInstrucciones = true;
             ignorarPrimerClick = true; // <- evita que desaparezca al instante

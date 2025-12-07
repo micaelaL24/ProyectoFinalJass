@@ -48,7 +48,7 @@ public class PantallaNivel2 extends PantallaNivelBase implements Screen {
         camera = configurarCamara(mapa);
 
         // Crear jugadores
-        jugadorLuna = new Jugador(150, 355, TipoJugador.AGUA);
+        jugadorLuna = new Jugador(150, 300, TipoJugador.AGUA);
         jugadorSol = new Jugador(150, 100, TipoJugador.FUEGO);
 
         // Cargar objetos del mapa
@@ -143,11 +143,6 @@ public class PantallaNivel2 extends PantallaNivelBase implements Screen {
     }
 
     @Override
-    public Array<Rectangle> getColisiones() { return colisiones; }
-
-
-
-    @Override
     public void pause() {
         super.pause();
         if (musicaNivel != null) musicaNivel.pause();
@@ -163,15 +158,6 @@ public class PantallaNivel2 extends PantallaNivelBase implements Screen {
     public void hide() {
         if (musicaNivel != null) musicaNivel.stop();
     }
-
-    public Array<Rectangle> getColisionesCombinadas() {
-        Array<Rectangle> out = new Array<>();
-        out.addAll(colisiones);
-        for (BloqueMovil b : bloquesMoviles)
-            out.add(b.getHitbox());
-        return out;
-    }
-
 
     @Override
     public void dispose() {

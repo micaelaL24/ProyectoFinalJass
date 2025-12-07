@@ -45,11 +45,11 @@ public class PantallaNivel7 extends PantallaNivelBase implements Screen {
         camera = configurarCamara(mapa);
 
         // Crear jugadores en la parte BAJA del mapa
-        jugadorLuna = new Jugador(150, 150, TipoJugador.AGUA);
-        jugadorSol = new Jugador(1750, 150, TipoJugador.FUEGO);
+        jugadorLuna = new Jugador(150, 100, TipoJugador.AGUA);
+        jugadorSol = new Jugador(1750, 100, TipoJugador.FUEGO);
 
         // Cargar objetos del mapa
-        colisiones = MapaHelper.cargarRectangulos(mapa, "Colisiones");
+        colisiones = MapaHelper.cargarRectangulos(mapa, "PiedraMarron");
         peligroLava = MapaHelper.cargarRectangulos(mapa, "PeligroLava");
         peligroAgua = MapaHelper.cargarRectangulos(mapa, "PeligroAgua");
         estrellas = MapaHelper.cargarRectangulos(mapa, "Estrellas");
@@ -116,9 +116,6 @@ public class PantallaNivel7 extends PantallaNivelBase implements Screen {
     protected Jugador getJugadorSol() {
         return jugadorSol;
     }
-
-    @Override
-    public Array<Rectangle> getColisiones() { return colisiones; }
 
     @Override
     public void resize(int width, int height) {}

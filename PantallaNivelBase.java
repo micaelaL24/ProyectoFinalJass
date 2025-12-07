@@ -198,7 +198,6 @@ public abstract class PantallaNivelBase implements Screen {
         // Desbloquea el siguiente nivel usando tu clase utilidad
         ProgresoJuego.desbloquearNivel(siguienteNivel);
 
-
         // Cambiar a la pantalla de victoria
         Render.app.setScreen(new PantallaVictoria());
     }
@@ -291,9 +290,6 @@ public abstract class PantallaNivelBase implements Screen {
     }
 
     @Override public void resize(int width, int height) {}
-
-    protected abstract Array<Rectangle> getColisiones();
-
     @Override public void pause() { timer.pausar(); }
     @Override public void resume() { timer.despausar(); }
     @Override public void hide() {}

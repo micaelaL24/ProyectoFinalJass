@@ -114,10 +114,6 @@ public class PantallaNivel10 extends PantallaNivelBase implements Screen {
         return jugadorSol;
     }
 
-
-    @Override
-    public Array<Rectangle> getColisiones() { return colisiones; }
-
     @Override
     public void resize(int width, int height) {}
 
